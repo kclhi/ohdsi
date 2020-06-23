@@ -10,27 +10,33 @@ Before starting, [download and install docker (machine)](https://docs.docker.com
 
 1. Checkout OMOP CDM v5.2.2:
 
-`git clone -b v5.2.2 git@github.com:OHDSI/CommonDataModel.git cdm`
+`git clone -b v5.2.2 git@github.com:OHDSI/CommonDataModel.git db/cdm`
 
-or v6.0:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or v6.0.0:
 
-`git clone -b v6.0.0 git@github.com:OHDSI/CommonDataModel.git cdm`
+`git clone -b v6.0.0 git@github.com:OHDSI/CommonDataModel.git db/cdm`
 
-### CDM v5.2.2
+2. Vocabulary
 
-2. Download vocabulary from [Athena](https://athena.ohdsi.org/vocabulary/list) into a folder called `vocabulary`. Minimum codesets: SNOMED, ICD9CM, ICD9Proc, CPT4, HCPCS, RxNorm, NDC, Gender, Race, CMS Place of Service, Ethnicity, Currency and RxNorm. Ensure all instructions in the downloaded Athena folder are followed.
+* CDM v5.2.2: Download vocabulary from [Athena](https://athena.ohdsi.org/vocabulary/list) into a folder called `db/vocabulary`. Minimum codesets: SNOMED, ICD9CM, ICD9Proc, CPT4, HCPCS, RxNorm, NDC, Gender, Race, CMS Place of Service, Ethnicity, Currency and RxNorm. Ensure all instructions in the downloaded Athena folder are followed.
 
-3. Download the SynPUF 1000 person dataset from [ltscomputingllc](http://www.ltscomputingllc.com/downloads/) into a folder called `data`.
+* CDM v6.0.0: Repeat as above, but downloading vocabulary to `etl/vocabulary`.
 
-4. Initially run the `broadsea-webtools` service, and obtain a DDL to define the tables of a `results` schema.
+3. Initially run the `broadsea-webtools` service, and obtain a DDL to define the tables of a `db/results` schema.
 
 ```
 docker-compose up -d broadsea-webtools
-curl "http://localhost:8080/WebAPI/ddl/results?dialect=postgresql&vocabSchema=cdm" >> results.sql
+curl "http://localhost:8080/WebAPI/ddl/results?dialect=postgresql&vocabSchema=cdm" >> db/results.sql
 docker-compose down
 ```
 
-5. Build the services.
+4. Data
+
+  * CDM v5.2.2: Download the SynPUF 1000 person dataset from [ltscomputingllc](http://www.ltscomputingllc.com/downloads/) into a folder called `db/data`.
+
+  * CDM v6.0.0: Clone the [Synthea](git@github.com:synthetichealth/synthea.git) patient dataset generator into `etl/data` and follow the instructions within the repository to generate a suitable dataset.
+
+5. Build the services (target v6 compose file with `-f docker-compose.v6.yml` for CDM v6.0.0, for this and subsequent docker commands).
 
 ```
 docker-compose build
@@ -39,15 +45,14 @@ docker-compose build
 6. Run the services, to initialise the database, tracking progress.
 
 ```
-docker-compose up -d
+docker-compose up -d db
 docker logs -f ohdsi_db_1
 ```
 
-7. Restart broadsea containers, prompting the webtools container to run its migrations against the (now initialised) database:
+7. Start the (remaining) broadsea containers, prompting the webtools container to run its migrations against the (now initialised) database:
 
 ```
-docker restart ohdsi_broadsea-webtools_1
-docker restart ohdsi_broadsea-methods-library_1
+docker-compose up -d
 ```
 
 8. Enter the `db` container, and execute the post-migration OHDSI script:
@@ -57,13 +62,14 @@ docker exec -it ohdsi_db_1 /bin/bash
 psql ohdsi --user user -f ohdsi.sql
 ```
 
-9. Restart the broadsea containers again, so they can leverage the information provided by the post-migration script.
+9. Restart the broadsea containers, so they can leverage the information provided by the post-migration script.
+
+```
+docker restart ohdsi_broadsea-webtools_1
+docker restart ohdsi_broadsea-methods-library_1
+```
 
 10. Confirm cohorts can be successfully generated at `http://localhost:8080/atlas/#/cohortdefinitions`.
-
-### CDM v6.0.0
-
-...
 
 ## Contributing
 
