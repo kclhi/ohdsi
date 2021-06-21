@@ -26,8 +26,9 @@ or v6.0:
 
 ```
 docker-compose up -d broadsea-webtools
-curl "http://localhost:8080/WebAPI/ddl/results?dialect=postgresql&vocabSchema=cdm" >> results.sql
-docker-compose down
+docker restart broadsea-webtools
+curl "http://localhost:8080/WebAPI/ddl/results?dialect=postgresql&vocabSchema=cdm" > results.sql
+docker-compose down -v
 ```
 
 5. Build the services.
@@ -36,7 +37,7 @@ docker-compose down
 docker-compose build
 ```
 
-6. Run the services, to initialise the database, tracking progress.
+6. Run the services, to initialise the database, tracking progress. NB. this is an intensive task, which may require a reset (either indirectly via a restart, or directly by (carefully) removing resources using `docker system prune -a`) before proceeding:
 
 ```
 docker-compose up -d
@@ -54,12 +55,32 @@ docker restart ohdsi_broadsea-methods-library_1
 
 ```
 docker exec -it ohdsi_db_1 /bin/bash
-psql ohdsi --user user -f ohdsi.sql
+psql omop --user user -f ohdsi.sql
 ```
 
 9. Restart the broadsea containers again, so they can leverage the information provided by the post-migration script.
 
-10. Confirm cohorts can be successfully generated at `http://localhost:8080/atlas/#/cohortdefinitions`.
+10. Open RStudio at `http://localhost:8787` and login with the username 'rstudio' and the password 'mypass'. Execute the following commands to create the remainder of the tables required by ATLAS and the API:
+
+```
+library(Achilles)
+
+connectionDetails <- createConnectionDetails(dbms = "postgresql",
+                                             server = "<DB container IP>/omop",
+                                             user = "user",
+                                             password = "password")
+
+achilles(connectionDetails = connectionDetails,
+         cdmDatabaseSchema = "cdm",
+         resultsDatabaseSchema = "results",
+         vocabDatabaseSchema = "cdm",
+         sourceName = "OHDSI-CDMV5",
+         cdmVersion = "5.2.2",
+         numThreads = 1,
+         runHeel = FALSE)
+```
+
+11. Confirm cohorts can be successfully generated at `http://localhost:8080/atlas/#/cohortdefinitions`.
 
 ### CDM v6.0.0
 

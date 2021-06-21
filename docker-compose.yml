@@ -4,11 +4,12 @@ services:
 
   db:
     build: db
+    command: postgres -c max_wal_size=2GB
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: omop
-    shm_size: 1g
+    shm_size: 5g
     volumes:
       - db-data:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
