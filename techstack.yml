@@ -1,0 +1,114 @@
+repo_name: kclhi/ohdsi
+report_id: 8725cdb1d3dafd3bebd89ffe7ce67fe2
+version: 0.1
+repo_type: Public
+timestamp: '2024-02-11T18:36:02+00:00'
+requested_by: martinchapman
+provider: github
+branch: master
+detected_tools_count: 9
+tools:
+- name: Java
+  description: A concurrent, class-based, object-oriented, language specifically designed
+    to have as few implementation dependencies as possible
+  website_url: https://www.java.com
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/995/K85ZWV2F.png
+  detection_source_url: https://github.com/kclhi/ohdsi/blob/master/etl/Dockerfile
+  detection_source: etl/Dockerfile
+  last_updated_by: Martin Chapman
+  last_updated_on: 2020-06-23 12:21:27.000000000 Z
+- name: JavaScript
+  description: Lightweight, interpreted, object-oriented language with first-class
+    functions
+  website_url: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/1209/javascript.jpeg
+  detection_source_url: https://github.com/kclhi/ohdsi
+  detection_source: Repo Metadata
+- name: R Language
+  description: A language and environment for statistical computing and graphics
+  website_url: http://www.r-project.org/
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/1213/r-logo.png
+  detection_source_url: https://github.com/kclhi/ohdsi
+  detection_source: Repo Metadata
+- name: SQL
+  description: It is a domain-specific language used in programming
+  website_url: https://en.wikipedia.org/wiki/SQL
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/2271/default_068d33483bba6b81ee13fbd4dc7aab9780896a54.png
+  detection_source_url: https://github.com/kclhi/ohdsi/blob/master/db/data.sql
+  detection_source: db/data.sql
+  last_updated_by: Martin Chapman
+  last_updated_on: 2020-06-23 12:21:27.000000000 Z
+- name: PostgreSQL
+  description: A powerful, open source object-relational database system
+  website_url: http://www.postgresql.org/
+  open_source: true
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Databases
+  image_url: https://img.stackshare.io/service/1028/ASOhU5xJ.png
+  detection_source_url: https://github.com/kclhi/ohdsi/blob/master/docker-compose.yml
+  detection_source: docker-compose.yml
+  last_updated_by: Martin Chapman
+  last_updated_on: 2021-06-21 15:46:24.000000000 Z
+- name: Apache Tomcat
+  description: An open source software implementation of the Java Servlet and JavaServer
+    Pages technologies
+  website_url: http://tomcat.apache.org/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Application Hosting
+  sub_category: Web Servers
+  image_url: https://img.stackshare.io/service/1187/tomcat.png
+  detection_source_url: https://github.com/kclhi/ohdsi/blob/master/docker-compose.yml
+  detection_source: docker-compose.yml
+  last_updated_by: Martin Chapman
+  last_updated_on: 2020-06-23 12:21:27.000000000 Z
+- name: Docker
+  description: Enterprise Container Platform for High-Velocity Innovation.
+  website_url: https://www.docker.com/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Virtual Machine Platforms & Containers
+  image_url: https://img.stackshare.io/service/586/n4u37v9t_400x400.png
+  detection_source_url: https://github.com/kclhi/ohdsi
+  detection_source: Repo Metadata
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/kclhi/ohdsi
+  detection_source: Repo Metadata
+- name: Shell
+  description: A shell is a text-based terminal, used for manipulating programs and
+    files. Shell scripts typically manage program execution.
+  website_url: https://en.wikipedia.org/wiki/Shell_script
+  open_source: false
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/4631/default_c2062d40130562bdc836c13dbca02d318205a962.png
+  detection_source_url: https://github.com/kclhi/ohdsi
+  detection_source: Repo Metadata
