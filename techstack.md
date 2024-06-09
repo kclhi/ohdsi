@@ -38,7 +38,7 @@ Full tech stack [here](/techstack.md)
 # Tech Stack File
 ![](https://img.stackshare.io/repo.svg "repo") [kclhi/ohdsi](https://github.com/kclhi/ohdsi)![](https://img.stackshare.io/public_badge.svg "public")
 <br/><br/>
-|9<br/>Tools used|02/11/24 <br/>Report generated|
+|9<br/>Tools used|06/09/24 <br/>Report generated|
 |------|------|
 </div>
 
